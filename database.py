@@ -15,17 +15,13 @@ def init_db():
         c.execute('''CREATE TABLE IF NOT EXISTS USER_INFO (pin TEXT NOT NULL)''')
         
         # Main table for storing credentials. 
-        # Note: email and username are not NOT NULL because a user might only have one or the other.
         c.execute('''CREATE TABLE IF NOT EXISTS passwords (
                         website TEXT NOT NULL, 
                         email TEXT, 
                         username TEXT,
                         password TEXT NOT NULL)''')
         
-        # ---------------- MIGRATION LOGIC ----------------
-        # This checks if the 'username' column exists in the database.
-        # If an older user updates to this version, this prevents the app from crashing
-        # and safely adds the new column without deleting their old passwords.
+        # MIGRATION LOGIC: Adds username column if it doesn't exist
         c.execute("PRAGMA table_info(passwords)")
         columns = [column[1] for column in c.fetchall()]
         if 'username' not in columns:
@@ -46,10 +42,8 @@ def init_db():
 def user_exists():
     with get_connection() as conn:
         c = conn.cursor()
-        # Check if the USER_INFO table exists in the sqlite_master registry
         c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='USER_INFO'")
         if c.fetchone():
-            # If table exists, check if there's actually a PIN saved inside it
             c.execute("SELECT * FROM USER_INFO")
             if c.fetchone():
                 return True
@@ -89,26 +83,29 @@ def add_password(website, email, username, password):
                   (website, email, username, password))
         conn.commit()
 
-# Read/Search a password entry by website name
-def get_password(website):
+# Read/Search ALL password entries for a given website name
+def get_passwords(website):
     with get_connection() as conn:
         c = conn.cursor()
         c.execute("SELECT email, username, password FROM passwords WHERE website = ?", (website,))
-        return c.fetchone() # Returns a tuple: (email, username, password)
+        return c.fetchall() # FETCHALL returns a list of tuples for multiple accounts
 
-# Update an existing password entry
-def update_password(website, new_email, new_username, new_password):
+# Update a specific password entry using the old email/username to target it precisely
+def update_password(website, old_email, old_username, new_email, new_username, new_password):
     with get_connection() as conn:
         c = conn.cursor()
-        c.execute("UPDATE passwords SET email = ?, username = ?, password = ? WHERE website = ?",
-                  (new_email, new_username, new_password, website))
+        c.execute('''UPDATE passwords 
+                     SET email = ?, username = ?, password = ? 
+                     WHERE website = ? AND email = ? AND username = ?''',
+                  (new_email, new_username, new_password, website, old_email, old_username))
         conn.commit()
 
 # Delete a specific password entry
-def delete_password(website):
+def delete_password(website, email, username):
     with get_connection() as conn:
         c = conn.cursor()
-        c.execute("DELETE FROM passwords WHERE website = ?", (website,))
+        c.execute("DELETE FROM passwords WHERE website = ? AND email = ? AND username = ?", 
+                  (website, email, username))
         conn.commit()
 
 # Fetch all saved records for the 'View All' page
@@ -120,17 +117,14 @@ def get_all_saved_websites():
 
 # ------------------- Default Emails Operations -------------------
 
-# Save a new email to the quick-select dropdown
 def add_default_email(email):
     with get_connection() as conn:
         c = conn.cursor()
         c.execute("INSERT INTO default_emails (email) VALUES (?)", (email,))
         conn.commit()
 
-# Retrieve all saved default emails
 def get_default_emails():
     with get_connection() as conn:
         c = conn.cursor()
         c.execute("SELECT email FROM default_emails")
-        # Extract the email strings from the returned tuples into a clean list
         return [row[0] for row in c.fetchall()]

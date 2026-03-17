@@ -171,18 +171,26 @@ def add_password_page(window, navigate):
     # Search for an existing password
     def search_password():
         website = website_entry.get().upper()
-        result = database.get_password(website)
         
-        if result:
-            # Build the display string dynamically based on what data was saved
-            msg = ""
-            if result[0]: msg += f"Email: {result[0]}\n"
-            if result[1]: msg += f"Username: {result[1]}\n"
-            msg += f"Password: {result[2]}"
-            messagebox.showinfo(title=website, message=msg)
+        # Returns a list of all accounts for this website
+        results = database.get_passwords(website)
+        
+        if results:
+            msg = f"Accounts found for {website}:\n\n"
+            
+            # Loop through the list and format each account
+            for index, (email, username, password) in enumerate(results, start=1):
+                msg += f"--- Account {index} ---\n"
+                if email: msg += f"Email: {email}\n"
+                if username: msg += f"Username: {username}\n"
+                msg += f"Password: {password}\n\n"
+                
+            # .strip() removes any trailing blank lines
+            messagebox.showinfo(title=website, message=msg.strip())
         else:
             messagebox.showinfo(title="Error", message=f"No password found for {website}.")
 
+            
     # Wipe database function
     def delete_account():
         if messagebox.askyesno(title="Delete Account", message="Are you sure you want to delete your account? All data will be lost."):
