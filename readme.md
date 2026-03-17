@@ -1,9 +1,4 @@
-
-# Project Title
-
-A brief description of what this project does and who it's for
-
-# 🔐 PassKeeper - Secure Offline Password Manager
+# 🔐 PASSKEEPER - Secure Offline Password Manager
 
 PassKeeper is a lightweight, locally-hosted desktop application built with Python and Tkinter. Designed with privacy and modularity in mind, it provides a secure vault for managing credentials, generating cryptographically strong passwords, and organizing multiple accounts without relying on cloud storage.
 
@@ -81,7 +76,7 @@ The application will automatically generate the data/ folder and initialize the 
 
 ## Demo
 
-Insert gif or link to demo
+![video](./assets/passkeeper.gif)
 
 
 ## Future Development (Roadmap)
