@@ -33,6 +33,7 @@ PassKeeper/
 ├── main.py                 # Application entry point and view router
 ├── requirements.txt        # Project dependencies
 └── README.md
+```
 
 ## Getting Started
 
