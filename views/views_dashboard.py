@@ -190,7 +190,7 @@ def add_password_page(window, navigate):
         else:
             messagebox.showinfo(title="Error", message=f"No password found for {website}.")
 
-            
+
     # Wipe database function
     def delete_account():
         if messagebox.askyesno(title="Delete Account", message="Are you sure you want to delete your account? All data will be lost."):
@@ -211,7 +211,7 @@ def add_password_page(window, navigate):
     Button(window, text="Add", width=59, command=save, bg=config.DARK_CHARCOAL, fg=config.TURQUOISE, font=config.FONT).grid(row=8, column=1, columnspan=3, pady=config.ENTRY_PAD, sticky=EW)
     
     # Navigation Buttons (using lambda to pass the page name to the router)
-    Button(window, text="view saved websites", command=lambda: navigate("view_all"), bg=config.DARK_CHARCOAL, fg=config.TURQUOISE, font=config.FONT).grid(row=10, column=0, pady=20)
-    Button(window, text="save_default_emails", command=lambda: navigate("save_emails"), bg=config.DARK_CHARCOAL, fg=config.TURQUOISE, font=config.FONT).grid(row=10, column=1, columnspan=2, pady=20)
-    Button(window, text="update_passwords", command=lambda: navigate("update_delete"), bg=config.DARK_CHARCOAL, fg=config.TURQUOISE, font=config.FONT).grid(row=10, column=3, pady=20, columnspan=4, sticky=E)
-    Button(window, text="delete_account", command=delete_account, bg=config.DARK_CHARCOAL, fg=config.TURQUOISE, font=config.FONT).grid(row=11, column=1, columnspan=2, pady=20, sticky=EW)
+    Button(window, text="View saved websites", command=lambda: navigate("view_all"), bg=config.DARK_CHARCOAL, fg=config.TURQUOISE, font=config.FONT).grid(row=10, column=0, pady=20)
+    Button(window, text="Save default emails", command=lambda: navigate("save_emails"), bg=config.DARK_CHARCOAL, fg=config.TURQUOISE, font=config.FONT).grid(row=10, column=1, columnspan=2, pady=20)
+    Button(window, text="Update/Delete passwords", command=lambda: navigate("update_delete"), bg=config.DARK_CHARCOAL, fg=config.TURQUOISE, font=config.FONT).grid(row=10, column=3, pady=20, columnspan=4, sticky=E)
+    Button(window, text="Delete account", command=delete_account, bg=config.DARK_CHARCOAL, fg=config.TURQUOISE, font=config.FONT).grid(row=11, column=1, columnspan=2, pady=20, sticky=EW)

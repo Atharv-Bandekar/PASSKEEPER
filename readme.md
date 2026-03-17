@@ -1,3 +1,8 @@
+
+# Project Title
+
+A brief description of what this project does and who it's for
+
 # 🔐 PassKeeper - Secure Offline Password Manager
 
 PassKeeper is a lightweight, locally-hosted desktop application built with Python and Tkinter. Designed with privacy and modularity in mind, it provides a secure vault for managing credentials, generating cryptographically strong passwords, and organizing multiple accounts without relying on cloud storage.
@@ -47,33 +52,46 @@ Follow these steps to get the application running on your local machine.
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/Atharv-Bandekar/PASSKEEPER.git]
+   git clone https://github.com/Atharv-Bandekar/PASSKEEPER.git
    cd PASSKEEPER
+   ```
 
 2. **Install dependencies:**
 PassKeeper requires the pyperclip library for clipboard operations.
    ```Bash
    pip install -r requirements.txt
+   ```
 
-3.**Run the application:**
+3. **Run the application:**
 The application will automatically generate the data/ folder and initialize the SQLite database on its first run.
    ```Bash
    python main.py
+   ```
 
-###📸 Screenshots
 
-## 📸 Screenshots
 
-<p float="left">
-  <img src="assets/login_preview.png" width="400" alt="Login Screen">
-  <img src="assets/dashboard_preview.png" width="400" alt="Dashboard Screen">
-</p>
+## Screenshots
 
-##🔮 Future Enhancements (Roadmap)
+![App Screenshot](./assets/login_preview.png)
+
+![App Screenshot](./assets/dashboard_preview.png)
+
+
+
+
+## Demo
+
+Insert gif or link to demo
+
+
+## Future Development (Roadmap)
 
 * **Password Hashing**: Transition from plaintext storage to bcrypt hashing.
 
 * **Export Functionality**: Allow users to securely export their vault to an encrypted CSV or JSON file.
 
-## 🤝 Contributing
+
+## Contributing
+
 Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
+
