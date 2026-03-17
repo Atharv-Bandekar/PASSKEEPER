@@ -72,13 +72,6 @@ The application will automatically generate the data/ folder and initialize the 
 ![App Screenshot](./assets/dashboard_preview.png)
 
 
-
-
-## Demo
-
-![video](./assets/passkeeper.gif)
-
-
 ## Future Development (Roadmap)
 
 * **Password Hashing**: Transition from plaintext storage to bcrypt hashing.
