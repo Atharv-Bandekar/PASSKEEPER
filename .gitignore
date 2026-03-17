@@ -1,3 +1,17 @@
+# Passkeeper DB files
+data/
 passwords.db
-venv
-.idea
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.env
+
+# IDEs
+.idea/
+.vscode/
